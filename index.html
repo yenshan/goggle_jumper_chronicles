@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./assets/style.css" type="text/css">
+    </head>
+    <body>
+        <div id="gameContainer">
+            <div id="canvasContainer">
+                <canvas id="gameCanvas" style="border:1px solid #000000; background-color: #000000;"></canvas>
+            </div>
+        </div>
+
+        <canvas id="canvasBg" style="border:1px solid #000000; background-color: #000000; display:none;"></canvas>
+
+        <script type="module" src="index.js"></script>
+
+        <script>
+            // Disable touch events outside buttons
+            document.body.addEventListener('touchstart', function(event) {
+                if (!event.target.closest('.dpad-button') && !event.target.closest('.button')) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+
+            const canvas = document.getElementById('gameCanvas');
+
+            // フルスクリーンにする関数
+            function enterFullscreen(element) {
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) { // Firefox
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) { // Safari
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) { // IE/Edge
+                    element.msRequestFullscreen();
+                }
+            }
+
+            // Canvasをクリックしたときにフルスクリーンにする
+            canvas.addEventListener('dblclick', () => {
+                enterFullscreen(canvas);
+            });
+
+        </script>
+    </body>
+</html>
