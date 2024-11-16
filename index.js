@@ -58,7 +58,7 @@ function wait_time(cnt) {
 // -----------------------------------
 //  text drawing functions
 // -----------------------------------
-const fontsheet = new SpriteSheet(8,8,"./assets/nesfont.png");
+const fontsheet = new SpriteSheet(8,8,"./assets/gamefont.png");
 const fontchars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:-=";
 
 function charIndex(c) {
@@ -86,7 +86,7 @@ function print_blink(str, x, y) {
     }
 }
 
-const numfonts = new SpriteSheet(4,6,"./assets/small_num_fonts.png");
+const numfonts = new SpriteSheet(4,6,"./assets/smallnumfont.png");
 
 export function print_small_num(str, x, y) {
    for (let i = 0; i < str.length; i++) {
@@ -203,6 +203,7 @@ let state = State.TITLE;
 let h_score = 0;
 let world;
 
+let pause = false;
 function update() {
 
     switch(state) {
@@ -218,10 +219,13 @@ function update() {
         }
         break;
     case State.GAME:
+        if (input.start) pause = !pause;
         clear_background();
         draw_background();
 
-        world.update();
+        if (!pause)
+            world.update();
+
         world.draw();
 
         if (world.gameOver()) {
